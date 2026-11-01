@@ -1,0 +1,24 @@
+int ledPins[] = {2, 3, 4, 5, 6}; 
+int numLeds = 5; 
+int delayTime = 150; 
+void setup() { 
+for (int i = 0; i < numLeds; i++) { 
+pinMode(ledPins[i], OUTPUT); 
+} 
+} 
+void loop() { 
+for (int i = 0; i < numLeds; i++) { 
+turnOnOnly(i); 
+delay(delayTime); 
+} 
+6 
+for (int i = numLeds - 2; i > 0; i--) { 
+turnOnOnly(i); 
+delay(delayTime); 
+} 
+} 
+void turnOnOnly(int idx) { 
+for (int j = 0; j < numLeds; j++) { 
+digitalWrite(ledPins[j], (j == idx)); 
+} 
+} 
