@@ -1,20 +1,20 @@
-void setup() { 
-Serial.begin(9600); 
-} 
-void loop() { 
-Serial.println("Hello from Arduino 1"); 
-delay(1000); 
-} 
-Arduino 2 (Receiver): 
-Code for Receiver (Arduino 2): 
-44 
-void setup() { 
-Serial.begin(9600); 
-} 
-void loop() { 
-if (Serial.available()) { 
-String msg = Serial.readStringUntil('\n'); 
-Serial.print("Received: "); 
-Serial.println(msg); 
-} 
+void setup() {
+    Serial.begin(9600);
+}
+
+void loop() {
+    Serial.println("Hello from Arduino 1");
+    delay(1000);
+}
+void setup() {
+    Serial.begin(9600);
+}
+
+void loop() {
+    if (Serial.available() > 0) {
+        String msg = Serial.readStringUntil('\n');
+
+        Serial.print("Received: ");
+        Serial.println(msg);
+    }
 }
