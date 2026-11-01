@@ -1,0 +1,27 @@
+const int sensorPin = 7; // SIG pin 
+long duration; 
+float distanceCM; 
+void setup() { 
+Serial.begin(9600); 
+pinMode(sensorPin, OUTPUT); 
+} 
+void loop() { 
+47 
+// Send trigger pulse 
+pinMode(sensorPin, OUTPUT); 
+digitalWrite(sensorPin, LOW); 
+delayMicroseconds(2); 
+digitalWrite(sensorPin, HIGH); 
+delayMicroseconds(10); 
+digitalWrite(sensorPin, LOW); 
+// Change pin to input to read echo 
+pinMode(sensorPin, INPUT); 
+// Read the echo pulse duration 
+duration = pulseIn(sensorPin, HIGH); 
+// Calculate distance in cm 
+distanceCM = duration * 0.034 / 2; 
+Serial.print("Distance: "); 
+Serial.print(distanceCM); 
+Serial.println(" cm"); 
+delay(1000); 
+}
