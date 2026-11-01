@@ -1,0 +1,17 @@
+const int LDR_PIN = A0; 
+const int LED_PIN = 9; 
+int threshold = 600;  // Adjust after Serial Monitor test 
+void setup() { 
+pinMode(LED_PIN, OUTPUT); 
+Serial.begin(9600); 
+} 
+void loop() { 
+int ldrValue = analogRead(LDR_PIN); 
+Serial.println(ldrValue);  // See values in Serial Monitor 
+if (ldrValue < threshold) { 
+digitalWrite(LED_PIN, HIGH);  // Turn ON in dark 
+} else { 
+digitalWrite(LED_PIN, LOW);   // Turn OFF in light 
+} 
+delay(500); 
+}
