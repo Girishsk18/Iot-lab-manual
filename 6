@@ -1,0 +1,31 @@
+const int MOISTURE_PIN = A0;  // Sensor analog pin 
+const int DRY_LED = 8;        // Green LED for dry waste 
+const int WET_LED = 9;        // Blue LED for wet waste 
+ 
+int threshold = 600; // Tune this value based on readings 
+ 
+void setup() { 
+  Serial.begin(9600); 
+  pinMode(DRY_LED, OUTPUT); 
+  pinMode(WET_LED, OUTPUT); 
+} 
+ 
+void loop() { 
+  int moistureValue = analogRead(MOISTURE_PIN); 
+  Serial.print("Moisture: "); 
+  Serial.println(moistureValue); 
+ 
+  if (moistureValue > threshold) { 
+    // Wet waste 
+    Serial.println("Classified: WET WASTE"); 
+    digitalWrite(WET_LED, HIGH); 
+    digitalWrite(DRY_LED, LOW); 
+  } else { 
+    // Dry waste 
+    Serial.println("Classified: DRY WASTE"); 
+    digitalWrite(DRY_LED, HIGH); 
+    digitalWrite(WET_LED, LOW); 
+  } 
+ 
+  delay(1000);  // Wait for 1 second 
+}
