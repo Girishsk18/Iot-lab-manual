@@ -1,0 +1,42 @@
+#include <LiquidCrystal.h> 
+// LCD pin setup: RS, E, D4, D5, D6, D7 
+LiquidCrystal lcd(7, 6, 5, 4, 3, 8); 
+// TMP36 on A1, LDR on A0 
+const int tempPin = A1; 
+const int ldrPin = A0; 
+void setup() { 
+Serial.begin(9600); 
+lcd.begin(16, 2); 
+lcd.print("Weather Station"); 
+delay(2000); 
+lcd.clear(); 
+} 
+void loop() { 
+// Read temperature from TMP36 
+int tempReading = analogRead(tempPin); 
+float voltage = tempReading * (5.0 / 1023.0); 
+float temperatureC = (voltage - 0.5) * 100; 
+// Read LDR and map to light percentage 
+int ldrValue = analogRead(ldrPin); 
+int lightPercent = map(ldrValue, 0, 1023, 100, 0); // 0 = bright, 100 = dark 
+// Print to Serial Monitor 
+Serial.print("Temp: "); 
+Serial.print(temperatureC); 
+Serial.print(" °C, Light: "); 
+Serial.print(lightPercent); 
+Serial.println("%"); 
+// Display on LCD 
+41 
+lcd.setCursor(0, 0); 
+lcd.print("Temp:"); 
+lcd.print(temperatureC, 1); 
+lcd.print((char)223); // Degree symbol 
+lcd.print("C     
+"); 
+lcd.setCursor(0, 1); 
+lcd.print("Light:"); 
+lcd.print(lightPercent); 
+lcd.print("%     
+"); 
+delay(2000); 
+}
