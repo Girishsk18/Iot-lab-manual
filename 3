@@ -1,0 +1,35 @@
+#define trigPin 9 
+#define echoPin 10 
+#define soundSensor A0 
+#define alertPin 13  // LED or buzzer 
+void setup() { 
+Serial.begin(9600); 
+pinMode(trigPin, OUTPUT); 
+pinMode(echoPin, INPUT); 
+pinMode(alertPin, OUTPUT); 
+} 
+void loop() { 
+// --- Ultrasonic Sensor Logic --- 
+digitalWrite(trigPin, LOW); 
+delayMicroseconds(2); 
+digitalWrite(trigPin, HIGH); 
+delayMicroseconds(10); 
+digitalWrite(trigPin, LOW); 
+long duration = pulseIn(echoPin, HIGH); 
+int distance = duration * 0.034 / 2; 
+// --- Sound Sensor Logic --- 
+int soundLevel = analogRead(soundSensor); 
+// --- Serial Output --- 
+Serial.print("Distance: "); 
+Serial.print(distance); 
+Serial.print(" cm | Sound: "); 
+Serial.println(soundLevel); 
+13 
+// --- Alert Condition --- 
+if ((distance > 0 && distance < 50) || soundLevel > 600) { 
+digitalWrite(alertPin, HIGH); // Alert: Intruder detected 
+} else { 
+digitalWrite(alertPin, LOW);  // No intrusion 
+} 
+delay(300); 
+}
